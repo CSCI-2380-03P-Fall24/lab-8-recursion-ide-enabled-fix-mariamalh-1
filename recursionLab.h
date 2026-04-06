@@ -9,14 +9,27 @@ using namespace std;
 //          lineOfStars(0) returns ""
 // You may not use a loop.
 string lineOfStars(int n) {
-	return "fixme";
+	if (n <= 0){
+		return "";
+	}
+	else{
+		return "*" + lineOfStars(n - 1); 
+	}
 }
 
 // Write a function power() that will
 //    compute the x to the power of n recursively
 // if the power is invalid, return 0
 float power(float x, int n) {
-	return -1;	
+	if (n == 0){
+		return 1.0;
+	}
+	else if (n <= 0){
+		return 0.0;
+	}
+	else{
+		return x * power(x, n - 1);
+	}
 }
 
 /*
@@ -36,7 +49,18 @@ should display:
 ****
 
 */
-void stars(int n) {}
+void stars(int n) {
+	if (n <= 0){
+		return;
+	}
+	cout << lineOfStars(n) << endl;
+
+	stars(n - 1);
+
+	if (n > 1){
+		cout << lineOfStars(n) << endl;
+	}
+}
 
 // Write a *recursive* function that will check if
 //    a string is a palindrome
@@ -44,7 +68,15 @@ void stars(int n) {}
 // Hint 2: s.substr(i,j) gives you the substring of s. For example if s = Hello, s(1,s.length()-1) gives you ello
 bool isPalindromeR(string s)
 {
-	return false;
+	if (s.length() <= 1){
+		return true;
+	}
+	if (s.front() != s.back()){
+		return false;
+	}
+	else{
+		return isPalindromeR(s.substr(1, s.length() - 2));
+	}
 }
 
 
@@ -53,7 +85,10 @@ bool isPalindromeR(string s)
 //  methods from the previous function
 string reverse(string s)
 {
-	return "fixme"; 
+	if (s.length() <= 1){
+		return s;
+	}
+	return reverse(s.substr(1)) + s.front(); 
 }
 
 // Write a function that returns the sum of the decimal digits of n.
@@ -61,7 +96,13 @@ string reverse(string s)
 //          sumDigits(-4096) returns 19
 // You may not use a loop. Treat n as its absolute value.
 int sumDigits(int n) {
-    return -1; // fix this!
+    if (n < 0){
+		n = abs(n);
+	}
+	if (n == 0){
+		return 0;
+	}
+	return (n % 10) + sumDigits(n / 10); // fix this!
 }
 
 // Write a function that returns how many times x appears
@@ -69,5 +110,13 @@ int sumDigits(int n) {
 // Example: arr = {1,1,2}, n = 3, x = 1  returns 2
 // You may not use a loop.
 int countOccurrences(const int* arr, int n, int x) {
-    return -1; // fix this!
+	if (n == 0){
+		return 0;
+	}
+	if(arr[n-1] == x){
+		return 1 + countOccurrences(arr, n - 1, x);
+	}
+	else{
+		 return countOccurrences(arr, n - 1, x);
+	}
 }
